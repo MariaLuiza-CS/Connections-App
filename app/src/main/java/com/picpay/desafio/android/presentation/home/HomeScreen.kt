@@ -39,11 +39,14 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.picpay.desafio.android.presentation.utils.ErrorScreen
 import com.picpay.desafio.android.ui.monaSansFont
 import kotlinx.serialization.Serializable
@@ -144,7 +147,10 @@ fun UserItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
-            model = img,
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(img)
+                .diskCachePolicy(CachePolicy.ENABLED)
+                .build(),
             contentDescription = "",
             modifier = Modifier
                 .size(56.dp)
