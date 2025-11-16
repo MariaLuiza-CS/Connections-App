@@ -1,0 +1,21 @@
+package com.picpay.desafio.android.domain.util
+
+import com.picpay.desafio.android.data.local.UserEntity
+import com.picpay.desafio.android.data.remote.dto.UserResponseDto
+import com.picpay.desafio.android.domain.model.User
+
+fun UserEntity.toUser() =
+    User(
+        id = id,
+        name = name,
+        img = img,
+        username = username
+    )
+
+fun UserResponseDto.toUserEntity() =
+    UserEntity(
+        id = id ?: "",
+        name = name,
+        img = img,
+        username = username
+    )
