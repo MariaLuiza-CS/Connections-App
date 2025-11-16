@@ -1,0 +1,30 @@
+package com.picpay.desafio.android
+
+import android.app.Application
+import com.picpay.desafio.android.di.core.databaseModule
+import com.picpay.desafio.android.di.core.networkModule
+import com.picpay.desafio.android.di.core.repositoryModule
+import com.picpay.desafio.android.di.core.useCaseModule
+import com.picpay.desafio.android.di.feature.homeModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+
+class PicPay : Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin {
+            androidContext(this@PicPay)
+
+            modules(
+                listOf(
+                    databaseModule,
+                    networkModule,
+                    repositoryModule,
+                    useCaseModule,
+                    homeModule
+                )
+            )
+        }
+    }
+}
