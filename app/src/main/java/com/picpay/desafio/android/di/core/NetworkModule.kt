@@ -1,5 +1,6 @@
 package com.picpay.desafio.android.di.core
 
+import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.picpay.desafio.android.BuildConfig
 import com.picpay.desafio.android.data.remote.PicPayService
@@ -34,5 +35,9 @@ val networkModule = module {
             .addConverterFactory(jsonConfig.asConverterFactory(contentType))
             .build()
             .create(PicPayService::class.java)
+    }
+
+    single {
+        FirebaseAuth.getInstance()
     }
 }

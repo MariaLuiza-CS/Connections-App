@@ -1,5 +1,7 @@
 package com.picpay.desafio.android.domain.util
 
+import com.google.firebase.auth.FirebaseUser
+import com.picpay.desafio.android.data.local.AuthenticationPersonEntity
 import com.picpay.desafio.android.data.local.UserEntity
 import com.picpay.desafio.android.data.remote.dto.UserResponseDto
 import com.picpay.desafio.android.domain.model.User
@@ -18,4 +20,12 @@ fun UserResponseDto.toUserEntity() =
         name = name,
         img = img,
         username = username
+    )
+
+fun FirebaseUser.toAuthenticationPersonEntity() =
+    AuthenticationPersonEntity(
+        id = uid,
+        name = displayName ?: "",
+        email = email ?: "",
+        img = photoUrl.toString()
     )

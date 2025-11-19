@@ -6,6 +6,7 @@ import com.picpay.desafio.android.di.core.networkModule
 import com.picpay.desafio.android.di.core.repositoryModule
 import com.picpay.desafio.android.di.core.useCaseModule
 import com.picpay.desafio.android.di.feature.homeModule
+import com.picpay.desafio.android.di.feature.loginModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -22,7 +23,8 @@ class PicPay : Application() {
                     networkModule,
                     repositoryModule,
                     useCaseModule,
-                    homeModule
+                    homeModule,
+                    loginModule
                 )
             )
         }

@@ -72,7 +72,8 @@ fun ErrorScreen(
 
             Text(
                 modifier = Modifier.padding(20.dp),
-                text = "Sentimos muito pelo problema. Nosso time já esta trabalhando no problema.",
+                text = messageError
+                    ?: "Sentimos muito pelo problema. Nosso time já esta trabalhando no problema.",
                 fontFamily = monaSansFont,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.primary,

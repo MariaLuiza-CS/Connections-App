@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "323443411318",
+    "project_id": "social-media-app-1843",
+    "storage_bucket": "social-media-app-1843.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323443411318:android:bb8db8f4f901cda1aa9257",
+        "android_client_info": {
+          "package_name": "com.picpay.desafio.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323443411318-4pfpoikrrfdfrp030hjafgmrt62jvck4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.picpay.desafio.android",
+            "certificate_hash": "fb0cbee920888c23627144e227215a3cecde23c1"
+          }
+        },
+        {
+          "client_id": "323443411318-qml04ht0bn5tdm8969hohdsj6aebeuh6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBVAQHG2cMkCVZUDNFP9wPwoi1zcWJunE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323443411318-qml04ht0bn5tdm8969hohdsj6aebeuh6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

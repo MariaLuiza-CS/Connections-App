@@ -1,6 +1,7 @@
 package com.picpay.desafio.android.di.core
 
 import androidx.room.Room
+import com.picpay.desafio.android.data.local.AuthenticationDao
 import com.picpay.desafio.android.data.local.PicPayDataBase
 import com.picpay.desafio.android.data.local.UserDao
 import org.koin.android.ext.koin.androidContext
@@ -19,5 +20,9 @@ val databaseModule = module {
 
     single<UserDao> {
         get<PicPayDataBase>().userDao()
+    }
+
+    single<AuthenticationDao> {
+        get<PicPayDataBase>().authenticationDao()
     }
 }

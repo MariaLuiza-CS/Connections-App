@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.picpay.desafio.android.presentation.home.HomeScreen
+import com.picpay.desafio.android.presentation.login.LoginScreen
 import com.picpay.desafio.android.presentation.utils.ErrorScreen
 
 @Composable
@@ -26,6 +27,11 @@ fun PicPayNavGraph(
             ErrorScreen(
                 navHostController = navHostController,
                 messageError = args.messageError
+            )
+        }
+        composable<LoginScreen> {
+            LoginScreen(
+                navHostController = navHostController
             )
         }
     }

@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.compose.rememberNavController
-import com.picpay.desafio.android.presentation.home.HomeScreen
+import com.picpay.desafio.android.presentation.login.LoginScreen
 import com.picpay.desafio.android.ui.PicPayTheme
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
                 PicPayNavGraph(
                     navController,
-                    HomeScreen
+                    LoginScreen
                 )
             }
         }

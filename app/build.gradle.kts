@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.google.gms.google.services)
     id("kotlin-parcelize")
     id("jacoco")
 }
@@ -18,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId = "com.picpay.desafio.android"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -152,21 +153,21 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
 
-    //Mockk
+    // Mockk
     testImplementation(libs.mockk)
 
-    //Retrofit
+    // Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.serialization.converter)
 
-    //OkHttp
+    // OkHttp
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 
-    //Serialization
+    // Serialization
     implementation(libs.serialization.json)
 
-    //Navigation
+    // Navigation
     implementation(libs.androidx.navigation.compose)
 
     // Koin
@@ -178,9 +179,16 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
 
-    //Room
+    // Room
     implementation(libs.room)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
     testImplementation(libs.room.test)
+
+    // Firebase
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.googleid.v110)
 }
