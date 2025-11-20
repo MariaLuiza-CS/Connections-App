@@ -12,7 +12,7 @@ interface AuthenticationDao {
     suspend fun insertAuthenticationPerson(authenticationPersonEntity: AuthenticationPersonEntity)
 
     @Query("SELECT * FROM authentication_person")
-    fun getAuthenticationPerson(): Flow<AuthenticationPersonEntity>
+    fun getAuthenticationPerson(): Flow<AuthenticationPersonEntity?>
 
     @Query("DELETE FROM authentication_person")
     suspend fun cleanAuthenticationPerson()

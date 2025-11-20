@@ -206,4 +206,7 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
     implementation(libs.googleid.v110)
+
+    //Splash Screen
+    implementation(libs.androidx.core.splashscreen)
 }
