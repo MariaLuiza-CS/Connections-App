@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -25,6 +27,18 @@ android {
         versionName = "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val localProperties = Properties().apply {
+            val file = rootProject.file("local.properties")
+            if (file.exists()) load(file.inputStream())
+        }
+
+        val serverClientId = localProperties.getProperty("SERVER_CLIENT_ID") ?: ""
+        buildConfigField(
+            "String",
+            "SERVER_CLIENT_ID",
+            "\"$serverClientId\""
+        )
     }
 
     buildTypes {
@@ -34,6 +48,7 @@ android {
                 "PICPAY_SERVICE_BASE_URL",
                 "\"https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/\""
             )
+
             enableAndroidTestCoverage = true
             enableUnitTestCoverage = true
         }

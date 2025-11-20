@@ -1,6 +1,7 @@
 package com.picpay.desafio.android.presentation.login
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,16 +13,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
@@ -31,6 +38,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.presentation.home.HomeScreen
 import com.picpay.desafio.android.presentation.utils.ErrorScreen
+import com.picpay.desafio.android.ui.monaSansFont
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,12 +51,15 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel()
 ) {
     val images = listOf(
-        R.drawable.img_one,
-        R.drawable.img_two,
-        R.drawable.frame_one_one
+        R.drawable.img_one_login,
+        R.drawable.img_two_login,
+        R.drawable.img_three_login,
+        R.drawable.img_four_login,
+        R.drawable.img_five_login
     )
 
     val pagerState = rememberPagerState(pageCount = { images.size })
+    val coroutineScope = rememberCoroutineScope()
 
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -82,18 +93,38 @@ fun LoginScreen(
             }
         }
     }
-
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         if (uiState.isLoading) {
             CircularProgressIndicator()
         }
 
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxSize()
-        ) {
+            modifier = Modifier
+                .fillMaxSize()
+                .pointerInput(Unit) {
+                    detectTapGestures { offset ->
+                        val screenWidth = size.width
+                        val tappedX = offset.x
+                        coroutineScope.launch {
+                            if (tappedX > screenWidth / 2) {
+                                val next =
+                                    (pagerState.currentPage + 1).coerceAtMost(images.size - 1)
+                                pagerState.animateScrollToPage(next)
+                            } else {
+                                val prev = (pagerState.currentPage - 1).coerceAtLeast(0)
+                                pagerState.animateScrollToPage(prev)
+                            }
+                        }
+                    }
+                },
+            userScrollEnabled = false // 🔒 desabilita swipe
+        ) { page ->
             Image(
-                painter = painterResource(id = images[it]),
+                painter = painterResource(id = images[page]),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -103,33 +134,64 @@ fun LoginScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(32.dp),
+                .padding(20.dp),
             verticalArrangement = Arrangement.Bottom
         ) {
-            Button(onClick = {
-                CoroutineScope(Dispatchers.Main).launch {
-                    try {
-                        val response =
-                            credentialManager.getCredential(context = context, request = request)
-                        val googleCredential =
-                            GoogleIdTokenCredential.createFrom(response.credential.data)
-                        val idToken = googleCredential.idToken
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        try {
+                            val response =
+                                credentialManager.getCredential(
+                                    context = context,
+                                    request = request
+                                )
+                            val googleCredential =
+                                GoogleIdTokenCredential.createFrom(response.credential.data)
+                            val idToken = googleCredential.idToken
 
-                        viewModel.onEvent(LoginEvent.SignInGoogle(idToken))
-                    } catch (e: Exception) {
-                        navHostController.navigate(
-                            ErrorScreen(
-                                messageError = e.message
+                            viewModel.onEvent(LoginEvent.SignInGoogle(idToken))
+                        } catch (e: Exception) {
+                            navHostController.navigate(
+                                ErrorScreen(
+                                    messageError = e.message
+                                )
                             )
-                        )
+                        }
                     }
-                }
-            }) {
-                Text("Entrar com Google")
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Text(
+                    modifier = Modifier.padding(8.dp),
+                    text = "Entrar com Google",
+                    fontFamily = monaSansFont,
+                    fontWeight = FontWeight.Medium,
+                    textAlign = TextAlign.Center
+                )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = {   }, modifier = Modifier.fillMaxWidth()) {
-                Text("Ajuda")
+            Button(
+                onClick = {
+
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Text(
+                    modifier = Modifier.padding(8.dp),
+                    text = "Ajuda",
+                    fontFamily = monaSansFont,
+                    fontWeight = FontWeight.Medium,
+                    textAlign = TextAlign.Center
+                )
             }
         }
 
