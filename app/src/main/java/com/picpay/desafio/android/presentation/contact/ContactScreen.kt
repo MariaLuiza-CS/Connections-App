@@ -256,4 +256,4 @@ fun Modifier.shimmerEffect(): Modifier = composed {
 }
 
 @Serializable
-object HomeScreen
+object ContactScreen

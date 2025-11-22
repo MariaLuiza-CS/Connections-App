@@ -12,7 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.picpay.desafio.android.presentation.navigation.PicPayNavGraph
+import com.picpay.desafio.android.presentation.navigation.ConnectionAppScarffold
 import com.picpay.desafio.android.ui.PicPayTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 if (startDestination != null) {
-                    PicPayNavGraph(
+                    ConnectionAppScarffold(
                         navController,
                         startDestination!!.route
                     )

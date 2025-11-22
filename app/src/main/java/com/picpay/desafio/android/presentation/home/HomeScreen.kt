@@ -1,18 +1,21 @@
 package com.picpay.desafio.android.presentation.home
 
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import org.koin.androidx.compose.koinViewModel
+import kotlinx.serialization.Serializable
 
 @Composable
 fun HomeScreen(
     navHostController: NavHostController,
-    viewModel: HomeViewModel = koinViewModel()
+    modifier: Modifier = Modifier
 ) {
-    Scaffold(
-        bottomBar =
-    ) {
+    HomeScreenContent(
+        navHostController = navHostController,
+        modifier = modifier
+    )
 
-    }
 }
+
+@Serializable
+object HomeScreen
