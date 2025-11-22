@@ -41,6 +41,3 @@ fun UserEntity.toAuthenticationUser() =
         email = email ?: "",
         img = img ?: ""
     )
-
-fun PeopleResponseDto.toPersonEntity() =
-    PersonEntity

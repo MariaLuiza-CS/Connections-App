@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface PeopleRepository {
-    fun getPeople(): Flow<Result<List<PersonWithPhotosEntity>>>
+    fun getPeople(): Flow<Result<List<PersonWithPhotosEntity?>>>
 }

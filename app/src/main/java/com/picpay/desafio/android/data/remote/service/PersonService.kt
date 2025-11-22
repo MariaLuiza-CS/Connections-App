@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface PersonService {
-    @GET
+    @GET("api/")
     suspend fun getPeople(
         @Query("results") results: Int = 20
     ): PeopleResponseDto

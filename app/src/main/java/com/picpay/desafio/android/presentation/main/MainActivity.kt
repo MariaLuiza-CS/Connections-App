@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 var startDestination by remember { mutableStateOf<InitialScreen?>(null) }
 
                 viewModel.onEvent(MainEvent.getLocalCurrentUser)
+                viewModel.onEvent(MainEvent.getPeopleWithPhotos)
 
                 splashScreen.setKeepOnScreenCondition {
                     uiState.isLoading

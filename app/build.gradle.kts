@@ -52,13 +52,13 @@ android {
             buildConfigField(
                 "String",
                 "PERSON_SERVICE_BASE_URL",
-                "\"https://randomuser.me/api/\""
+                "\"https://randomuser.me/\""
             )
 
             buildConfigField(
                 "String",
                 "PHOTOS_SERVICE_BASE_URL",
-                "\"https://picsum.photos/v2/list/\""
+                "\"https://picsum.photos/\""
             )
 
             enableAndroidTestCoverage = true

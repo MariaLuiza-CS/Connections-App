@@ -7,5 +7,6 @@ data class PersonResponseDto(
     val gender: String? = null,
     val name: NameResponseDto? = null,
     val email: String? = null,
-    val picture: PictureResponseDto? = null
+    val picture: PictureResponseDto? = null,
+    val login: LoginResponseDto? = null
 )

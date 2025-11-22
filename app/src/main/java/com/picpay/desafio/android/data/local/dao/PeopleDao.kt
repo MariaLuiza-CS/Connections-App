@@ -24,10 +24,10 @@ interface PeopleDao {
         person: PersonEntity,
         photos: List<PhotoEntity>
     ) {
-        val personId = insertPerson(person)
+        insertPerson(person)
         val photosToInsert = photos.map {
             it.copy(
-                personId = personId
+                personId = person.id
             )
         }
         insertPhotos(photosToInsert)
