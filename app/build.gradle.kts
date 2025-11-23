@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import java.util.Properties
 
 plugins {
@@ -7,12 +8,9 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.detekt)
     id("kotlin-parcelize")
     id("jacoco")
-}
-
-jacoco {
-    toolVersion = "0.8.13"
 }
 
 android {
@@ -113,6 +111,10 @@ android {
     }
 }
 
+jacoco {
+    toolVersion = "0.8.13"
+}
+
 tasks.register<JacocoReport>("jacocoTestReport") {
     dependsOn("testDebugUnitTest")
 
@@ -124,7 +126,6 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         html.required.set(true)
         csv.required.set(false)
 
-        // 👇 garante que o HTML vai para uma pasta previsível
         html.outputLocation.set(
             layout.buildDirectory.dir("reports/jacoco/jacocoTestReport/html")
         )
@@ -169,6 +170,22 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         println(">>> unit test coverage dir files: ${fileTree(unitTestCoverageDir).files}")
         println(">>> html report will be at: ${reports.html.outputLocation.get().asFile.absolutePath}")
         println(">>> xml report will be at: ${reports.xml.outputLocation.get().asFile.absolutePath}")
+    }
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    config.setFrom(files("$rootDir/detekt.yml"))
+    ignoreFailures = false
+}
+
+tasks.withType<Detekt>().configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        txt.required.set(false)
+        sarif.required.set(false)
     }
 }
 

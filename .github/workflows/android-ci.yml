@@ -28,11 +28,9 @@ jobs:
             ~/.gradle/wrapper/
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
-      # 👇 NOVO: dar permissão de execução ao gradlew
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      # Build do APK debug
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
@@ -41,6 +39,9 @@ jobs:
 
       - name: Generate Jacoco coverage report
         run: ./gradlew jacocoTestReport
+
+      - name: Run Detekt
+        run: ./gradlew Detekt
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
@@ -53,3 +54,9 @@ jobs:
         with:
           name: jacoco-report
           path: app/build/reports/jacoco/jacocoTestReport
+
+      - name: Upload Detekt report
+        uses: actions/upload-artifact@v4
+        with:
+          name: detekt-report
+          path: app/build/reports/detekt/detekt.html

@@ -57,6 +57,10 @@ googleid = "1.1.1"
 coreSplashscreen = "1.0.0"
 # Splash Screen
 
+# Detekt
+detektVersion = "1.23.6"
+# Detekt
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -135,3 +139,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
