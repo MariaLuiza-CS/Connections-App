@@ -6,6 +6,7 @@ import com.picpay.desafio.android.data.repository.UserRepository
 import com.picpay.desafio.android.domain.repository.ContactUserRepositoryImplContact
 import com.picpay.desafio.android.domain.repository.PeopleRepositoryImpl
 import com.picpay.desafio.android.domain.repository.UserRepositoryImpl
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoryModule = module {

@@ -1,13 +1,15 @@
 package com.picpay.desafio.android.domain.repository
 
+import android.content.Context
 import com.picpay.desafio.android.data.local.dao.PeopleDao
 import com.picpay.desafio.android.data.local.entity.PersonEntity
-import com.picpay.desafio.android.data.local.entity.PersonWithPhotosEntity
 import com.picpay.desafio.android.data.local.entity.PhotoEntity
 import com.picpay.desafio.android.data.remote.service.PersonService
 import com.picpay.desafio.android.data.remote.service.PhotosService
 import com.picpay.desafio.android.data.repository.PeopleRepository
+import com.picpay.desafio.android.domain.model.PersonWithPhotos
 import com.picpay.desafio.android.domain.model.Result
+import com.picpay.desafio.android.domain.util.toPersonWithPhotos
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -22,7 +24,7 @@ class PeopleRepositoryImpl(
     private val photosService: PhotosService,
     private val peopleDao: PeopleDao
 ) : PeopleRepository {
-    override fun getPeople(): Flow<Result<List<PersonWithPhotosEntity?>>> = flow {
+    override fun getPeople(): Flow<Result<List<PersonWithPhotos?>>> = flow {
         emit(Result.Loading)
 
         val localPeopleList = peopleDao.getAllPeopleWithPhotos()
@@ -33,7 +35,9 @@ class PeopleRepositoryImpl(
         if (hasLocalPerson) {
             emit(
                 Result.Success(
-                    initialLocalPerson
+                    initialLocalPerson.map {
+                        it.toPersonWithPhotos()
+                    }
                 )
             )
         }
@@ -93,7 +97,9 @@ class PeopleRepositoryImpl(
             if (entities.isNotEmpty()) {
                 emit(
                     Result.Success(
-                        entities
+                        entities.map {
+                            it.toPersonWithPhotos()
+                        }
                     )
                 )
             }
