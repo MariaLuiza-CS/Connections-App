@@ -5,7 +5,7 @@ import com.picpay.desafio.android.domain.model.Result
 import com.picpay.desafio.android.domain.model.User
 import kotlinx.coroutines.flow.Flow
 
-class GetUsersUseCase(
+class GetContactUsersUseCase(
     private val contactUserRepository: ContactUserRepository
 ) {
     operator fun invoke(): Flow<Result<List<User>>> {

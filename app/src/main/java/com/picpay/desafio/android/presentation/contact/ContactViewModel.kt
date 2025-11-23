@@ -3,7 +3,7 @@ package com.picpay.desafio.android.presentation.contact
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.picpay.desafio.android.domain.usecase.GetUsersUseCase
+import com.picpay.desafio.android.domain.usecase.GetContactUsersUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,12 +12,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class ContactViewModel(
-    private val getUsersUseCase: GetUsersUseCase,
+    private val getContactUsersUseCase: GetContactUsersUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
-        savedStateHandle.get<ContactUiState>("homeUiState") ?: ContactUiState()
+        savedStateHandle.get<ContactUiState>("contactUiState") ?: ContactUiState()
     )
     val uiState: StateFlow<ContactUiState> = _uiState
 
@@ -27,14 +27,14 @@ class ContactViewModel(
     init {
         viewModelScope.launch {
             _uiState.collect { newState ->
-                savedStateHandle["homeUiState"] = newState
+                savedStateHandle["contactUiState"] = newState
             }
         }
     }
 
     fun onEvent(event: ContactEvent) {
         when (event) {
-            is ContactEvent.LoadUsers -> loadUsers()
+            is ContactEvent.LoadUsersList -> loadUsers()
         }
     }
 
@@ -44,7 +44,7 @@ class ContactViewModel(
 
     private fun loadUsers() {
         viewModelScope.launch {
-            getUsersUseCase().collectLatest { result ->
+            getContactUsersUseCase().collectLatest { result ->
                 when (result) {
                     is com.picpay.desafio.android.domain.model.Result.Loading -> {
                         _uiState.value = _uiState.value.copy(
