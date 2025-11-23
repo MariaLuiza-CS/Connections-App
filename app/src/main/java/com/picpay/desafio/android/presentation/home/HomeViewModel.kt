@@ -14,10 +14,6 @@ class HomeViewModel(
     private val getPeopleWithPhotosUseCase: GetPeopleWithPhotosUseCase
 ) : ViewModel() {
 
-    companion object {
-        private const val HOME_UI_STATE_KEY = "homeUiState"
-    }
-
     private var _uiState = MutableStateFlow(HomeUIState())
     var uiState: StateFlow<HomeUIState> = _uiState
 

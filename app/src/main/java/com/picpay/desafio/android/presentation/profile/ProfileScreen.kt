@@ -83,7 +83,7 @@ fun ProfileScreen(
                 Box(
                     modifier = Modifier
                         .height(18.dp)
-                        .fillMaxWidth(0.5f)
+                        .fillMaxWidth()
                         .clip(RoundedCornerShape(4.dp))
                         .shimmerEffect()
                 )
@@ -91,7 +91,7 @@ fun ProfileScreen(
                 Box(
                     modifier = Modifier
                         .height(18.dp)
-                        .fillMaxWidth(0.5f)
+                        .fillMaxWidth()
                         .clip(RoundedCornerShape(4.dp))
                         .shimmerEffect()
                 )
@@ -106,7 +106,7 @@ fun ProfileScreen(
                     Box(
                         modifier = Modifier
                             .height(18.dp)
-                            .fillMaxWidth(0.5f)
+                            .fillMaxWidth()
                             .clip(RoundedCornerShape(4.dp))
                             .shimmerEffect()
                     )
@@ -114,7 +114,7 @@ fun ProfileScreen(
                     Box(
                         modifier = Modifier
                             .height(18.dp)
-                            .fillMaxWidth(0.5f)
+                            .fillMaxWidth()
                             .clip(RoundedCornerShape(4.dp))
                             .shimmerEffect()
                     )
@@ -124,7 +124,7 @@ fun ProfileScreen(
                     Box(
                         modifier = Modifier
                             .height(18.dp)
-                            .fillMaxWidth(0.5f)
+                            .fillMaxWidth()
                             .clip(RoundedCornerShape(4.dp))
                             .shimmerEffect()
                     )
@@ -132,7 +132,7 @@ fun ProfileScreen(
                     Box(
                         modifier = Modifier
                             .height(18.dp)
-                            .fillMaxWidth(0.5f)
+                            .fillMaxWidth()
                             .clip(RoundedCornerShape(4.dp))
                             .shimmerEffect()
                     )

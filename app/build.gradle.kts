@@ -176,7 +176,7 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 detekt {
     buildUponDefaultConfig = true
     allRules = false
-    config.setFrom(files("$rootDir/detekt.yml"))
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
     ignoreFailures = false
 }
 

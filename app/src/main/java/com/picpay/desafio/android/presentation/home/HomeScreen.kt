@@ -39,6 +39,7 @@ import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
+import com.picpay.desafio.android.domain.util.Constant
 import com.picpay.desafio.android.presentation.contact.shimmerEffect
 import com.picpay.desafio.android.ui.monaSansFont
 import kotlinx.serialization.Serializable
@@ -65,7 +66,7 @@ fun HomeScreen(
             LazyColumn(
                 state = listState
             ) {
-                items(8) {
+                items(Constant.NUMBER_EIGHT) {
                     PersonItemLoading()
                 }
             }
@@ -219,7 +220,7 @@ fun PersonItemLoading() {
                     Box(
                         modifier = Modifier
                             .height(18.dp)
-                            .fillMaxWidth(0.5f)
+                            .fillMaxWidth()
                             .clip(RoundedCornerShape(4.dp))
                             .shimmerEffect()
                     )

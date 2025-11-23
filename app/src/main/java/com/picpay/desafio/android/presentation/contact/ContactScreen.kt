@@ -51,6 +51,7 @@ import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.picpay.desafio.android.R
+import com.picpay.desafio.android.domain.util.Constant
 import com.picpay.desafio.android.presentation.utils.ErrorScreen
 import com.picpay.desafio.android.ui.monaSansFont
 import kotlinx.serialization.Serializable
@@ -129,7 +130,7 @@ fun ContactScreen(
                         .fillMaxSize()
                         .padding(innerPadding)
                 ) {
-                    items(8) {
+                    items(Constant.NUMBER_EIGHT) {
                         UserItemLoading()
                     }
                 }
@@ -221,7 +222,7 @@ fun UserItemLoading() {
             Box(
                 modifier = Modifier
                     .height(18.dp)
-                    .fillMaxWidth(0.3f)
+                    .fillMaxWidth()
                     .clip(RoundedCornerShape(4.dp))
                     .shimmerEffect()
             )
@@ -231,7 +232,7 @@ fun UserItemLoading() {
             Box(
                 modifier = Modifier
                     .height(18.dp)
-                    .fillMaxWidth(0.5f)
+                    .fillMaxWidth()
                     .clip(RoundedCornerShape(4.dp))
                     .shimmerEffect()
             )

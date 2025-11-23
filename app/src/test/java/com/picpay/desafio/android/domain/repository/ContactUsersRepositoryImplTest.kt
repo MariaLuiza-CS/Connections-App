@@ -2,8 +2,8 @@ package com.picpay.desafio.android.domain.repository
 
 import com.picpay.desafio.android.data.local.dao.ContactUserDao
 import com.picpay.desafio.android.data.local.entity.ContactUserEntity
-import com.picpay.desafio.android.data.remote.service.PicPayService
 import com.picpay.desafio.android.data.remote.dto.ContactUserResponseDto
+import com.picpay.desafio.android.data.remote.service.PicPayService
 import com.picpay.desafio.android.domain.model.Result
 import com.picpay.desafio.android.domain.model.User
 import kotlinx.coroutines.Dispatchers
@@ -120,7 +120,7 @@ class ContactUsersRepositoryImplTest {
         }
 
     @Test
-    fun `test when exists local users database and api success and emits Loading then Cache Success then Update Data Success`() =
+    fun `test exists local users and api success and emits Loading then Cache Success `() =
         runTest {
             val localEntities = listOf(
                 ContactUserEntity(

@@ -9,6 +9,7 @@ import com.picpay.desafio.android.data.remote.service.PhotosService
 import com.picpay.desafio.android.data.repository.PeopleRepository
 import com.picpay.desafio.android.domain.model.PersonWithPhotos
 import com.picpay.desafio.android.domain.model.Result
+import com.picpay.desafio.android.domain.util.Constant
 import com.picpay.desafio.android.domain.util.toPersonWithPhotos
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -43,15 +44,15 @@ class PeopleRepositoryImpl(
         }
 
         try {
-            val peopleFromApi = personService.getPeople(20)
+            val peopleFromApi = personService.getPeople(Constant.NUMBER_TWENTY)
             val apiPeopleList = peopleFromApi.results.orEmpty()
 
             coroutineScope {
                 val jobs = apiPeopleList.map { person ->
                     async {
                         semaphore.withPermit {
-                            val randomPage = (1..10).random()
-                            val randomLimit = (1..30).random()
+                            val randomPage = (Constant.NUMBER_ONE..Constant.NUMBER_TEN).random()
+                            val randomLimit = (Constant.NUMBER_ONE..Constant.NUMBER_THIRTY).random()
 
                             val photosFromApi = photosService.getPhotos(
                                 page = randomPage,
