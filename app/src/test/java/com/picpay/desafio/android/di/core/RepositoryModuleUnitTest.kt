@@ -10,6 +10,7 @@ import com.picpay.desafio.android.data.remote.service.PicPayService
 import com.picpay.desafio.android.data.repository.ContactUserRepository
 import com.picpay.desafio.android.data.repository.PeopleRepository
 import com.picpay.desafio.android.data.repository.UserRepository
+import com.picpay.desafio.android.data.local.ConnectionsAppDataBase
 import io.mockk.mockk
 import org.junit.After
 import org.junit.Assert.assertNotNull
@@ -31,6 +32,7 @@ class RepositoryModuleUnitTest : KoinTest {
         single<ContactUserDao> { mockk() }
         single<UserDao> { mockk() }
         single<PeopleDao> { mockk() }
+        single<ConnectionsAppDataBase> { mockk() }
     }
 
     private val contactUserRepository by inject<ContactUserRepository>()
