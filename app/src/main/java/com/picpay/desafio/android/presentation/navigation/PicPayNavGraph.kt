@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.picpay.desafio.android.presentation.contact.ContactScreen
+import com.picpay.desafio.android.presentation.help.HelpScreen
 import com.picpay.desafio.android.presentation.home.HomeScreen
 import com.picpay.desafio.android.presentation.login.LoginScreen
 import com.picpay.desafio.android.presentation.profile.ProfileScreen
@@ -44,6 +45,9 @@ fun PicPayNavGraph(
         }
         composable<ProfileScreen> {
             ProfileScreen(navHostController)
+        }
+        composable<HelpScreen> {
+            HelpScreen(navHostController)
         }
     }
 }

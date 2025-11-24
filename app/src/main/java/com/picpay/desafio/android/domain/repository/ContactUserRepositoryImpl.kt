@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 
-class ContactUserRepositoryImplContact(
+class ContactUserRepositoryImpl(
     private val picPayService: PicPayService,
     private val contactUserDao: ContactUserDao
 ) : ContactUserRepository {

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.domain.model.Result
 import com.picpay.desafio.android.domain.usecase.GetContactUsersUseCase
 import com.picpay.desafio.android.domain.usecase.GetLocalCurrentUseCase
+import com.picpay.desafio.android.domain.usecase.GetPeopleWithPhotosUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 class ProfileViewModel(
     private val getGetLocalCurrentUseCase: GetLocalCurrentUseCase,
     private val getContactUsersUseCase: GetContactUsersUseCase,
+    private val getPeopleWithPhotosUseCase: GetPeopleWithPhotosUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -31,11 +33,44 @@ class ProfileViewModel(
 
     fun onEvent(event: ProfileEvent) {
         when (event) {
-            is ProfileEvent.loadCurrentUser -> {
+            is ProfileEvent.LoadCurrentUser -> {
                 loadCurrentUser()
             }
-            is ProfileEvent.loadContactUserList -> {
+
+            is ProfileEvent.LoadContactUserList -> {
                 loadFollowersList()
+            }
+
+            is ProfileEvent.LoadPeopleWithPhotoList -> {
+                loadPeopleWithPhotoList()
+            }
+        }
+    }
+
+    private fun loadPeopleWithPhotoList() {
+        viewModelScope.launch {
+            getPeopleWithPhotosUseCase().collect { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = true,
+                            error = null
+                        )
+                    }
+
+                    is Result.Error -> {
+                        _uiState.value = _uiState.value.copy(
+                            error = result.message ?: "error to get current user"
+                        )
+                    }
+
+                    is Result.Success -> {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            peopleWithPhotosList = result.data
+                        )
+                    }
+                }
             }
         }
     }

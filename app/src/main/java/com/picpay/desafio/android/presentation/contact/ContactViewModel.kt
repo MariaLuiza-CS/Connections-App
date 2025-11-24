@@ -16,8 +16,12 @@ class ContactViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    companion object {
+        const val CONTACT_UI_STATE = "contactUiState"
+    }
+
     private val _uiState = MutableStateFlow(
-        savedStateHandle.get<ContactUiState>("contactUiState") ?: ContactUiState()
+        savedStateHandle.get<ContactUiState>(CONTACT_UI_STATE) ?: ContactUiState()
     )
     val uiState: StateFlow<ContactUiState> = _uiState
 
@@ -27,7 +31,7 @@ class ContactViewModel(
     init {
         viewModelScope.launch {
             _uiState.collect { newState ->
-                savedStateHandle["contactUiState"] = newState
+                savedStateHandle[CONTACT_UI_STATE] = newState
             }
         }
     }

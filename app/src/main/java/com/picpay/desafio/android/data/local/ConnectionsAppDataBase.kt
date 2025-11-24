@@ -21,7 +21,7 @@ import com.picpay.desafio.android.data.local.entity.UserEntity
     exportSchema = false
 )
 abstract class ConnectionsAppDataBase : RoomDatabase() {
-    abstract fun userDao(): ContactUserDao
-    abstract fun authenticationDao(): UserDao
+    abstract fun contactUserDao(): ContactUserDao
+    abstract fun userDao(): UserDao
     abstract fun peopleDao(): PeopleDao
 }

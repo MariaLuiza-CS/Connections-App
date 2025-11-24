@@ -103,12 +103,6 @@ android {
         viewBinding = true
         buildConfig = true
     }
-
-    testOptions {
-        unitTests.all {
-            // "jacoco.includeNoLocationClasses" não existe mais → remover
-        }
-    }
 }
 
 jacoco {
@@ -207,12 +201,20 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.core)
+    androidTestImplementation(libs.androidx.junit.v115)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.arch.core.testing)
 
     // Mockk
     testImplementation(libs.mockk)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.core)
+    androidTestImplementation(libs.mockwebserver)
+    androidTestImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.core)
 
     // Retrofit
     implementation(libs.retrofit)
@@ -252,4 +254,5 @@ dependencies {
 
     //Splash Screen
     implementation(libs.androidx.core.splashscreen)
+    testImplementation(kotlin("test"))
 }

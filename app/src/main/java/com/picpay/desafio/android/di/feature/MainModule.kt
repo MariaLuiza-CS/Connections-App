@@ -9,7 +9,6 @@ var mainModule = module {
     viewModel { (savedStateHandle: SavedStateHandle) ->
         MainViewModel(
             getLocalCurrentUseCase = get(),
-            getPeopleWithPhotosUseCase = get(),
             savedStateHandle = savedStateHandle
         )
     }

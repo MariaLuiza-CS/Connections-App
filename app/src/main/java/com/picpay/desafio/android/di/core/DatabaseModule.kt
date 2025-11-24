@@ -20,11 +20,11 @@ val databaseModule = module {
     }
 
     single<ContactUserDao> {
-        get<ConnectionsAppDataBase>().userDao()
+        get<ConnectionsAppDataBase>().contactUserDao()
     }
 
     single<UserDao> {
-        get<ConnectionsAppDataBase>().authenticationDao()
+        get<ConnectionsAppDataBase>().userDao()
     }
 
     single<PeopleDao> {

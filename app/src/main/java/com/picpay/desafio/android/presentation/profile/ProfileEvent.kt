@@ -1,6 +1,7 @@
 package com.picpay.desafio.android.presentation.profile
 
 sealed class ProfileEvent {
-    object loadCurrentUser : ProfileEvent()
-    object loadContactUserList : ProfileEvent()
+    data object LoadCurrentUser : ProfileEvent()
+    data object LoadContactUserList : ProfileEvent()
+    data object LoadPeopleWithPhotoList : ProfileEvent()
 }

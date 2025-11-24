@@ -1,6 +1,5 @@
 package com.picpay.desafio.android.presentation.home
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.domain.model.Result
@@ -17,14 +16,13 @@ class HomeViewModel(
     private var _uiState = MutableStateFlow(HomeUIState())
     var uiState: StateFlow<HomeUIState> = _uiState
 
-
     init {
         loadPeopleList()
     }
 
     fun onEvent(event: HomeEvent) {
         when (event) {
-            is HomeEvent.loadPeopleList -> {
+            is HomeEvent.LoadPeopleList -> {
                 loadPeopleList()
             }
         }

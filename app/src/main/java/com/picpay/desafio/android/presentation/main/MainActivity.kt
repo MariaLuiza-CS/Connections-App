@@ -32,8 +32,7 @@ class MainActivity : AppCompatActivity() {
                 val navController = rememberNavController()
                 var startDestination by remember { mutableStateOf<InitialScreen?>(null) }
 
-                viewModel.onEvent(MainEvent.getLocalCurrentUser)
-                viewModel.onEvent(MainEvent.getPeopleWithPhotos)
+                viewModel.onEvent(MainEvent.GetLocalCurrentUser)
 
                 splashScreen.setKeepOnScreenCondition {
                     uiState.isLoading
@@ -41,13 +40,13 @@ class MainActivity : AppCompatActivity() {
 
                 LaunchedEffect(Unit) {
                     viewModel.effect.collect { effect ->
-                        when (effect) {
+                        startDestination = when (effect) {
                             is MainEffect.NavigateToHome -> {
-                                startDestination = InitialScreen.HomeScreenRoute
+                                InitialScreen.HomeScreenRoute
                             }
 
                             is MainEffect.NavigateToLogin -> {
-                                startDestination = InitialScreen.LoginScreenRoute
+                                InitialScreen.LoginScreenRoute
                             }
                         }
                     }

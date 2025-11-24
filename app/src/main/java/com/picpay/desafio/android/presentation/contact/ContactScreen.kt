@@ -1,15 +1,11 @@
 package com.picpay.desafio.android.presentation.contact
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
+import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,15 +30,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,6 +47,7 @@ import coil.request.ImageRequest
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.domain.util.Constant
 import com.picpay.desafio.android.presentation.utils.ErrorScreen
+import com.picpay.desafio.android.presentation.utils.shimmerEffect
 import com.picpay.desafio.android.ui.monaSansFont
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -65,6 +60,7 @@ fun ContactScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         if (uiState.users.isEmpty()) {
@@ -78,7 +74,7 @@ fun ContactScreen(
                 is ContactEffect.NavigateToError -> {
                     navHostController.navigate(
                         ErrorScreen(
-                            messageError = "We encountered an error while trying to connect with our server."
+                            messageError = context.getString(R.string.txt_error_server)
                         )
                     )
                 }
@@ -88,13 +84,14 @@ fun ContactScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 scrollBehavior = scrollBehavior,
                 title = {
                     Text(
-                        "Followers",
+                        stringResource(R.string.txt_followers),
                         fontFamily = monaSansFont,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.primary
@@ -113,10 +110,11 @@ fun ContactScreen(
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_left),
-                            contentDescription = "Voltar"
+                            contentDescription = stringResource(R.string.ctd_followers)
                         )
                     }
-                }
+                },
+                windowInsets = WindowInsets(0, 0, 0, 0),
             )
         }
     ) { innerPadding ->
@@ -131,7 +129,7 @@ fun ContactScreen(
                         .padding(innerPadding)
                 ) {
                     items(Constant.NUMBER_EIGHT) {
-                        UserItemLoading()
+                        UserItemLoading(context)
                     }
                 }
             } else {
@@ -170,7 +168,7 @@ fun UserItem(
                 .data(img)
                 .diskCachePolicy(CachePolicy.ENABLED)
                 .build(),
-            contentDescription = "",
+            contentDescription = stringResource(R.string.ctd_image_profile),
             modifier = Modifier
                 .size(56.dp)
                 .clip(CircleShape)
@@ -180,7 +178,7 @@ fun UserItem(
 
         Column {
             Text(
-                text = name ?: "Sem nome",
+                text = name ?: stringResource(R.string.txt_error_name),
                 fontFamily = monaSansFont,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.primary,
@@ -188,7 +186,7 @@ fun UserItem(
             )
 
             Text(
-                text = username ?: "_",
+                text = username ?: stringResource(R.string.txt_error_nickname),
                 fontFamily = monaSansFont,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.primary,
@@ -199,7 +197,7 @@ fun UserItem(
 }
 
 @Composable
-fun UserItemLoading() {
+fun UserItemLoading(context: Context) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -211,6 +209,9 @@ fun UserItemLoading() {
                 .size(56.dp)
                 .clip(CircleShape)
                 .shimmerEffect()
+                .semantics {
+                    contentDescription = context.getString(R.string.ctd_loading_data)
+                }
         )
 
         Spacer(modifier = Modifier.width(12.dp))
@@ -225,6 +226,9 @@ fun UserItemLoading() {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(4.dp))
                     .shimmerEffect()
+                    .semantics {
+                        contentDescription = context.getString(R.string.ctd_loading_data)
+                    }
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -235,41 +239,10 @@ fun UserItemLoading() {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(4.dp))
                     .shimmerEffect()
+                    .semantics {
+                        contentDescription = context.getString(R.string.ctd_loading_data)
+                    }
             )
-        }
-    }
-}
-
-@Composable
-fun Modifier.shimmerEffect(): Modifier = composed {
-    val shimmerColors = listOf(
-        Color.LightGray.copy(alpha = 0.6f),
-        Color.LightGray.copy(alpha = 0.2f),
-        Color.LightGray.copy(alpha = 0.6f),
-    )
-
-    val transition = rememberInfiniteTransition(label = "shimmer")
-
-    val xShimmer = transition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1000f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1200, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "shimmerTranslate"
-    )
-
-    this.drawWithCache {
-        val gradient = Brush.linearGradient(
-            colors = shimmerColors,
-            start = Offset(xShimmer.value - size.width, 0f),
-            end = Offset(xShimmer.value, size.height)
-        )
-
-        onDrawWithContent {
-            drawContent()
-            drawRect(gradient)
         }
     }
 }

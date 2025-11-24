@@ -4,6 +4,6 @@ import com.picpay.desafio.android.presentation.home.HomeScreen
 import com.picpay.desafio.android.presentation.login.LoginScreen
 
 sealed class InitialScreen(val route: Any) {
-    object LoginScreenRoute : InitialScreen(LoginScreen)
-    object HomeScreenRoute : InitialScreen(HomeScreen)
+    data object LoginScreenRoute : InitialScreen(LoginScreen)
+    data object HomeScreenRoute : InitialScreen(HomeScreen)
 }

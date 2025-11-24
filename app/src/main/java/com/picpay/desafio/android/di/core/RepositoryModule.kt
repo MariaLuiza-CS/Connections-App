@@ -3,15 +3,14 @@ package com.picpay.desafio.android.di.core
 import com.picpay.desafio.android.data.repository.ContactUserRepository
 import com.picpay.desafio.android.data.repository.PeopleRepository
 import com.picpay.desafio.android.data.repository.UserRepository
-import com.picpay.desafio.android.domain.repository.ContactUserRepositoryImplContact
+import com.picpay.desafio.android.domain.repository.ContactUserRepositoryImpl
 import com.picpay.desafio.android.domain.repository.PeopleRepositoryImpl
 import com.picpay.desafio.android.domain.repository.UserRepositoryImpl
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoryModule = module {
     single<ContactUserRepository> {
-        ContactUserRepositoryImplContact(
+        ContactUserRepositoryImpl(
             picPayService = get(),
             contactUserDao = get()
         )

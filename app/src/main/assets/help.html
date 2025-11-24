@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Ajuda • Connections</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        :root {
+            --bg: #020617;
+            --card-bg: #020617;
+            --accent: #00CC65;
+            --accent-soft: #00b058;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --border: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+            "Roboto", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #111827 0, #020617 45%, #020617 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            margin: auto;
+        }
+
+        .card {
+            background: rgba(2, 6, 23, 0.96);
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(148, 163, 184, 0.12);
+            padding: 20px 18px 24px;
+            backdrop-filter: blur(16px);
+        }
+
+        .header {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .icon-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, #a7f3d0, var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #022c22;
+            font-weight: 900;
+            font-size: 22px;
+            box-shadow: 0 0 24px rgba(0, 204, 101, 0.6);
+        }
+
+        .title-group h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .title-group p {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .highlight-banner {
+            margin: 12px 0 18px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 204, 101, 0.12),
+                rgba(59, 130, 246, 0.08)
+            );
+            border: 1px solid rgba(0, 204, 101, 0.6);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 12px rgba(0, 204, 101, 0.9);
+        }
+
+        .section {
+            margin-top: 14px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .section-text {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .tips-grid {
+            margin-top: 12px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .tip-card {
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.98);
+            border: 1px solid rgba(31, 41, 55, 0.95);
+            padding: 10px 11px;
+        }
+
+        .tip-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            margin-top: 8px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        .contact-card {
+            margin-top: 16px;
+            padding: 12px 12px 14px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .contact-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .contact-text {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .contact-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 13px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .contact-label {
+            min-width: 70px;
+            color: var(--muted);
+        }
+
+        .contact-value a {
+            color: var(--accent);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            margin-top: 16px;
+            font-size: 11px;
+            color: var(--muted);
+            text-align: center;
+            opacity: 0.85;
+        }
+
+        .footer-note strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        @media (min-width: 600px) {
+            .card {
+                padding: 22px 22px 26px;
+            }
+
+            .tips-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="card" role="main" aria-label="Central de ajuda do Connections">
+        <header class="header">
+            <div class="icon-badge" aria-hidden="true">!</div>
+            <div class="title-group">
+                <h1>Ajuda do Connections</h1>
+                <p>Entenda como navegar, se conectar e interagir com outras pessoas.</p>
+            </div>
+        </header>
+
+        <section class="section" aria-label="Sobre o Connections">
+            <h2 class="section-title">O que é o Connections?</h2>
+            <p class="section-text">
+                O Connections é um app de social media focado em pessoas e relacionamentos
+                profissionais. Aqui você pode explorar o feed de posts, visualizar fotos,
+                acompanhar atividades de outras pessoas e fortalecer sua rede de contatos.
+            </p>
+        </section>
+
+        <section class="section" aria-label="Dicas de uso">
+            <h2 class="section-title">Dicas rápidas</h2>
+
+            <div class="tips-grid">
+                <article class="tip-card">
+                    <h3 class="tip-title">1. Navegando pelo feed</h3>
+                    <p class="section-text">
+                        Role o feed para ver novas conexões, fotos e atualizações. As imagens
+                        são carregadas de forma otimizada para manter uma boa experiência.
+                    </p>
+                </article>
+
+                <article class="tip-card">
+                    <h3 class="tip-title">2. Problemas ao carregar fotos</h3>
+                    <p class="section-text">
+                        Se as fotos não aparecerem, verifique sua conexão com a internet.
+                        Em alguns casos, o app pode estar exibindo conteúdo em cache.
+                    </p>
+                </article>
+
+                <article class="tip-card">
+                    <h3 class="tip-title">3. Estados de carregamento</h3>
+                    <p class="section-text">
+                        Enquanto o conteúdo carrega, você verá um efeito de <em>shimmer</em>
+                        indicando que os dados estão sendo buscados.
+                    </p>
+                </article>
+
+                <article class="tip-card">
+                    <h3 class="tip-title">4. Experiência em diferentes telas</h3>
+                    <p class="section-text">
+                        O layout foi pensado para se adaptar a diferentes tamanhos de tela
+                        e orientações (retrato e paisagem).
+                    </p>
+                </article>
+            </div>
+
+            <div class="tag" aria-hidden="true">
+                <span class="tag-dot"></span>
+                <span>Ajuda focada na experiência dentro do app Connections</span>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Contato para suporte">
+            <div class="contact-card">
+                <h2 class="contact-title">Precisa de ajuda?</h2>
+                <p class="contact-text">
+                    Se você tiver qualquer dúvida, encontrar um bug ou quiser conversar sobre melhorias
+                    no Connections, você pode falar diretamente comigo pelos canais abaixo:
+                </p>
+
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <span class="contact-label">WhatsApp:</span>
+                        <span class="contact-value">
+                            <a href="https://wa.me/5581985368371" target="_blank" rel="noopener noreferrer">
+                                +55 (81) 98536-8371
+                            </a>
+                        </span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="contact-label">LinkedIn:</span>
+                        <span class="contact-value">
+                            <a href="https://www.linkedin.com/in/marialuiza-cs/"
+                               target="_blank" rel="noopener noreferrer">
+                                linkedin.com/in/marialuiza-cs
+                            </a>
+                        </span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="contact-label">GitHub:</span>
+                        <span class="contact-value">
+                            <a href="https://github.com/MariaLuiza-CS"
+                               target="_blank" rel="noopener noreferrer">
+                                github.com/MariaLuiza-CS
+                            </a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

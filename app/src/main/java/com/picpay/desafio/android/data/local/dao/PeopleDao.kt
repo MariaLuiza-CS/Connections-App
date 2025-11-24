@@ -34,7 +34,7 @@ interface PeopleDao {
     }
 
     @Transaction
-    @Query("SELECT * FROM people")
+    @Query("SELECT * FROM people ORDER BY id LIMIT 20")
     fun getAllPeopleWithPhotos(): Flow<List<PersonWithPhotosEntity>>
 
     @Query("DELETE FROM people")

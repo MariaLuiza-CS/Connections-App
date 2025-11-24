@@ -29,8 +29,10 @@ class PeopleRepositoryImpl(
         emit(Result.Loading)
 
         val localPeopleList = peopleDao.getAllPeopleWithPhotos()
+
         val initialLocalPerson = localPeopleList.firstOrNull().orEmpty()
         val hasLocalPerson = initialLocalPerson.isNotEmpty()
+
         val semaphore = Semaphore(permits = 4)
 
         if (hasLocalPerson) {

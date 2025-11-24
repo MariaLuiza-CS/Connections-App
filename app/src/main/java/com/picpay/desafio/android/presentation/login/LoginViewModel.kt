@@ -17,8 +17,12 @@ class LoginViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    companion object {
+        const val LOGIN_UI_STATE = "loginUiState"
+    }
+
     private val _uiState = MutableStateFlow(
-        savedStateHandle.get<LoginUiState>("loginUiState") ?: LoginUiState()
+        savedStateHandle.get<LoginUiState>(LOGIN_UI_STATE) ?: LoginUiState()
     )
     val uiState: StateFlow<LoginUiState> = _uiState
 
@@ -28,7 +32,7 @@ class LoginViewModel(
     init {
         viewModelScope.launch {
             _uiState.collect { newState ->
-                savedStateHandle["loginUiState"] = newState
+                savedStateHandle[LOGIN_UI_STATE] = newState
             }
         }
     }

@@ -1,12 +1,10 @@
 package com.picpay.desafio.android.presentation.main
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.domain.model.Result
 import com.picpay.desafio.android.domain.usecase.GetLocalCurrentUseCase
-import com.picpay.desafio.android.domain.usecase.GetPeopleWithPhotosUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,12 +14,15 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val getLocalCurrentUseCase: GetLocalCurrentUseCase,
-    private val getPeopleWithPhotosUseCase: GetPeopleWithPhotosUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    companion object {
+        const val MAIN_UI_STATE = "mainUiState"
+    }
+
     private val _uiState = MutableStateFlow(
-        savedStateHandle.get<MainUiState>("mainUiState") ?: MainUiState()
+        savedStateHandle.get<MainUiState>(MAIN_UI_STATE) ?: MainUiState()
     )
     val uiState: StateFlow<MainUiState> = _uiState
 
@@ -31,39 +32,19 @@ class MainViewModel(
     init {
         viewModelScope.launch {
             _uiState.collect { newState ->
-                savedStateHandle["mainUiState"] = newState
+                savedStateHandle[MAIN_UI_STATE] = newState
             }
         }
     }
 
     fun onEvent(mainEvent: MainEvent) {
         when (mainEvent) {
-            is MainEvent.getLocalCurrentUser -> getLocalCurrentUser()
-            is MainEvent.getPeopleWithPhotos -> getPersonWithPhotos()
+            is MainEvent.GetLocalCurrentUser -> getLocalCurrentUser()
         }
     }
 
     private suspend fun sendEffect(effect: MainEffect) {
         _effect.emit(effect)
-    }
-
-    private fun getPersonWithPhotos() {
-        viewModelScope.launch {
-            getPeopleWithPhotosUseCase().collectLatest { result ->
-                when (result) {
-                    is Result.Success -> {
-                        Log.e("success", result.data.toString())
-                    }
-                    is Result.Error -> {
-                        Log.e("error", result.message?: "error")
-                    }
-                    is Result.Loading -> {
-                        Log.e("loading", "Loading")
-                    }
-                }
-
-            }
-        }
     }
 
     private fun getLocalCurrentUser() {

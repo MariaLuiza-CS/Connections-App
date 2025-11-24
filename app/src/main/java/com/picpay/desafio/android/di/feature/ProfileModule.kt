@@ -10,6 +10,7 @@ val profileModule = module {
         ProfileViewModel(
             getGetLocalCurrentUseCase = get(),
             getContactUsersUseCase = get(),
+            getPeopleWithPhotosUseCase = get(),
             savedStateHandle = savedStateHandle
         )
     }

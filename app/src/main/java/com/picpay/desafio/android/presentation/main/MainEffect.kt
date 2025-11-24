@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.presentation.main
 
 sealed class MainEffect {
-    object NavigateToHome : MainEffect()
-    object NavigateToLogin : MainEffect()
+    data object NavigateToHome : MainEffect()
+    data object NavigateToLogin : MainEffect()
 }

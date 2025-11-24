@@ -19,6 +19,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -51,7 +52,8 @@ class FakeContactUserDao(
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ContactUsersRepositoryImplTest {
-    private lateinit var contactUsersRepositoryImpl: ContactUserRepositoryImplContact
+
+    private lateinit var contactUsersRepositoryImpl: ContactUserRepositoryImpl
     private lateinit var fakePicPayService: FakePicPayService
     private lateinit var fakeUserDao: FakeContactUserDao
 
@@ -64,7 +66,7 @@ class ContactUsersRepositoryImplTest {
         fakePicPayService = FakePicPayService()
         fakeUserDao = FakeContactUserDao()
 
-        contactUsersRepositoryImpl = ContactUserRepositoryImplContact(
+        contactUsersRepositoryImpl = ContactUserRepositoryImpl(
             picPayService = fakePicPayService,
             contactUserDao = fakeUserDao
         )
@@ -91,7 +93,7 @@ class ContactUsersRepositoryImplTest {
                 )
             )
 
-            contactUsersRepositoryImpl = ContactUserRepositoryImplContact(
+            contactUsersRepositoryImpl = ContactUserRepositoryImpl(
                 picPayService = fakePicPayService,
                 contactUserDao = fakeUserDao
             )
@@ -146,7 +148,7 @@ class ContactUsersRepositoryImplTest {
                 usersToReturn = remoteUsers
             )
 
-            contactUsersRepositoryImpl = ContactUserRepositoryImplContact(
+            contactUsersRepositoryImpl = ContactUserRepositoryImpl(
                 picPayService = fakePicPayService,
                 contactUserDao = fakeUserDao
             )
@@ -183,7 +185,7 @@ class ContactUsersRepositoryImplTest {
                 exceptionToThrow = RuntimeException("Network error")
             )
 
-            contactUsersRepositoryImpl = ContactUserRepositoryImplContact(
+            contactUsersRepositoryImpl = ContactUserRepositoryImpl(
                 picPayService = fakePicPayService,
                 contactUserDao = fakeUserDao
             )
@@ -227,7 +229,7 @@ class ContactUsersRepositoryImplTest {
                 exceptionToThrow = RuntimeException("Network error")
             )
 
-            contactUsersRepositoryImpl = ContactUserRepositoryImplContact(
+            contactUsersRepositoryImpl = ContactUserRepositoryImpl(
                 picPayService = fakePicPayService,
                 contactUserDao = fakeUserDao
             )
