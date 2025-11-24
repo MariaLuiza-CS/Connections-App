@@ -1,6 +1,5 @@
 package com.picpay.desafio.android.domain.repository
 
-import android.content.Context
 import com.picpay.desafio.android.data.local.dao.PeopleDao
 import com.picpay.desafio.android.data.local.entity.PersonEntity
 import com.picpay.desafio.android.data.local.entity.PhotoEntity

@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.picpay.desafio.android.domain.usecase.GetContactUsersUseCase
 import com.picpay.desafio.android.domain.usecase.GetLocalCurrentUseCase
 import com.picpay.desafio.android.domain.usecase.GetPeopleWithPhotosUseCase
+import com.picpay.desafio.android.domain.usecase.SignOutGoogleUseCase
 import com.picpay.desafio.android.presentation.profile.ProfileViewModel
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,7 @@ class ProfileModuleUnitTest : KoinTest {
         single<GetLocalCurrentUseCase> { mockk() }
         single<GetContactUsersUseCase> { mockk() }
         single<GetPeopleWithPhotosUseCase> { mockk() }
+        single<SignOutGoogleUseCase> { mockk() }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
