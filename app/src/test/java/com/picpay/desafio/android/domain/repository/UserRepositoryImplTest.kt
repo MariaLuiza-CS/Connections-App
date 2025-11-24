@@ -1,7 +1,5 @@
 package com.picpay.desafio.android.domain.repository
 
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -17,21 +15,14 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 
 class UserRepositoryImplTest {
-
-    private lateinit var database: ConnectionsAppDataBase
     private val firebaseAuth = mock(FirebaseAuth::class.java)
     private val userDao = mock(UserDao::class.java)
+    private val database = mock(ConnectionsAppDataBase::class.java)
 
     private lateinit var repository: UserRepositoryImpl
 
     @Before
     fun setup() {
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            ConnectionsAppDataBase::class.java
-        ).allowMainThreadQueries()
-            .build()
-
         repository = UserRepositoryImpl(
             firebaseAuth = firebaseAuth,
             connectionsAppDataBase = database,
